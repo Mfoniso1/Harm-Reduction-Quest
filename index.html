@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Harm Reduction Quest</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Lato:400,700,900&display=swap');
+      body {
+        font-family: 'Lato', sans-serif;
+      }
+
+      @keyframes crush-animation {
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(0); opacity: 0; }
+      }
+      .animate-crush {
+        animation: crush-animation 0.5s ease-out forwards;
+      }
+
+      @keyframes points-animation {
+          0% { opacity: 1; transform: translateY(0) scale(0.5); }
+          100% { opacity: 0; transform: translateY(-40px) scale(1); }
+      }
+      .animate-points {
+          animation: points-animation 0.7s ease-out forwards;
+          position: absolute;
+          color: white;
+          font-weight: bold;
+          font-size: 1.5rem;
+          text-shadow: 0 0 5px black;
+          pointer-events: none;
+      }
+      
+      @keyframes drop-in-animation {
+        from {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      .animate-drop-in {
+        animation: drop-in-animation 0.4s ease-out;
+      }
+
+      @keyframes good-job-animation {
+        0% { opacity: 0; transform: translateY(10px) scale(0.8); }
+        50% { opacity: 1; transform: translateY(0) scale(1.1); }
+        100% { opacity: 0; transform: translateY(-20px) scale(0.9); }
+      }
+      .animate-good-job {
+        animation: good-job-animation 1s ease-out forwards;
+        position: absolute;
+        font-size: 2rem;
+        font-weight: 900;
+        color: #FFD700; /* gold */
+        text-shadow: 0 0 8px rgba(0,0,0,0.7);
+        pointer-events: none;
+        z-index: 10;
+      }
+
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
