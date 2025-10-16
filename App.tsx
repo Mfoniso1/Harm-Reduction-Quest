@@ -1,10 +1,10 @@
-
 // FIX: Created the main App component to manage game state and UI.
 import React, { useState } from 'react';
 import GameBoard from './components/GameBoard';
 import Header from './components/Header';
 import QuestionRenderer from './components/QuestionRenderer';
 import StartScreen from './components/StartScreen';
+import GameOverScreen from './components/GameOverScreen';
 import { GameBoardType, Badge, Buff } from './types';
 import { QUESTIONS } from './data/questions';
 import { BOARD_SIZE, CANDY_TYPES } from './constants';
@@ -67,8 +67,30 @@ const App: React.FC = () => {
   const [isAnswered, setIsAnswered] = useState(false);
   const [crushedCells, setCrushedCells] = useState<{row: number; col: number}[]>([]);
   const [isMuted, setIsMuted] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
 
   const currentQuestion = QUESTIONS[currentQuestionIndex];
+  
+  const resetGame = () => {
+    setBoard(createInitialBoard());
+    setCurrentQuestionIndex(0);
+    setScore(0);
+    setSafetyLevel(50);
+    setBadges([]);
+    setBuffs([]);
+    setIsAnswered(false);
+    setCrushedCells([]);
+    setIsGameOver(false);
+  };
+
+  const handleStartGame = () => {
+    resetGame();
+    setIsGameStarted(true);
+  };
+
+  const handleRestart = () => {
+    resetGame();
+  };
   
   const toggleMute = () => {
     setIsMuted(prev => !prev);
@@ -139,14 +161,17 @@ const App: React.FC = () => {
         setCurrentQuestionIndex(prev => prev + 1);
         setIsAnswered(false);
       } else {
-        // Game over logic
-        alert(`Game Over! Your final score: ${score}, Safety Level: ${safetyLevel}%`);
+        setIsGameOver(true);
       }
     }, 2000);
   };
 
   if (!isGameStarted) {
-    return <StartScreen onStart={() => setIsGameStarted(true)} />;
+    return <StartScreen onStart={handleStartGame} />;
+  }
+
+  if (isGameOver) {
+    return <GameOverScreen score={score} safetyLevel={safetyLevel} onRestart={handleRestart} />;
   }
 
   return (

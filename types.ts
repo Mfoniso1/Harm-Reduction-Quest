@@ -49,3 +49,9 @@ export interface Candy {
 }
 
 export type GameBoardType = Candy[][];
+
+export interface Clinic {
+  name: string;
+  address: string;
+  contact?: string;
+}
